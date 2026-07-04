@@ -50,7 +50,7 @@ export default function SignupPage() {
         <>
           {activeProvider === 'stripe' && <StripeCheckout />}
           {activeProvider === 'chargebee' && <ChargebeeCheckout />}
-          {activeProvider === 'paddle' && <PaddleCheckout />}
+          {activeProvider === 'paddle' && <PaddleCheckout priceId={process.env.PADDLE_PRICE_ID!} />}
         </>
       )}
     </main>
