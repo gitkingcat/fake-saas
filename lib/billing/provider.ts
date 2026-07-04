@@ -38,7 +38,14 @@ function resolveProvider(): Provider {
   return value as Provider;
 }
 
-export const provider: Provider = resolveProvider();
+/** Returns the active provider, or null if BILLING_PROVIDER is missing/invalid. Never throws. */
+export function getActiveProvider(): Provider | null {
+  try {
+    return resolveProvider();
+  } catch {
+    return null;
+  }
+}
 
 /** Returns the env var names required by the given provider. Never throws. */
 export function requiredEnvVars(p: Provider): string[] {
