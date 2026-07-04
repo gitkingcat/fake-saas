@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -27,7 +28,24 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+
+        {/*
+          ── affy.pro capture snippet ──────────────────────────────────────
+          TODO: Paste your affy.pro capture snippet here.
+          Replace the empty <Script> below (or its src/dangerouslySetInnerHTML)
+          with the snippet provided in your affy.pro dashboard.
+          strategy="afterInteractive" ensures it runs after page hydration,
+          which is required for cookie + localStorage writes to work correctly.
+          ──────────────────────────────────────────────────────────────────
+        */}
+        <Script
+          id="affy-capture"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{ __html: '' }}
+        />
+      </body>
     </html>
   );
 }
