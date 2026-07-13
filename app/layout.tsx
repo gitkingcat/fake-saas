@@ -33,10 +33,17 @@ export default function RootLayout({
 
         <Script
           id="affy-pixel"
-          src="https://cdn.affy.pro/js/pixel.min.js"
-          data-affy.pro="gObGD0E6X0rv"
-          data-cookie_duration="60"
           strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              var s=document.createElement('script');
+              s.async=true;
+              s.src='https://cdn.affy.pro/js/pixel.min.js';
+              s.setAttribute('data-affy.pro','gObGD0E6X0rv');
+              s.setAttribute('data-cookie_duration','60');
+              document.head.appendChild(s);
+            `,
+          }}
         />
       </body>
     </html>
