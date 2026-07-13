@@ -17,7 +17,13 @@ export default function StripeCheckout() {
     // Ensure Stripe.js has loaded before proceeding
     await stripePromise;
 
-    const res = await fetch('/api/checkout/stripe', { method: 'POST' });
+    const clickID = (window as unknown as { AffyJS?: { getReferralId(): string | null } }).AffyJS?.getReferralId() ?? null;
+
+    const res = await fetch('/api/checkout/stripe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ clickID }),
+    });
     if (!res.ok) {
       const body = await res.json().catch(() => ({}));
       setError(body.error ?? 'Failed to start checkout. Please try again.');
