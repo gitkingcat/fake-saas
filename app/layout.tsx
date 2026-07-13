@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -27,15 +28,9 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){var s=document.createElement('script');s.async=true;s.src='https://cdn.affy.pro/affy.js';s.setAttribute('data-affy.pro','gObGD0E6X0rv');s.setAttribute('data-cookie_duration','60');document.head.appendChild(s);})();`,
-          }}
-        />
-      </head>
       <body className="min-h-full flex flex-col">
         {children}
+        <Script src="/affy-loader.js" strategy="afterInteractive" />
       </body>
     </html>
   );
