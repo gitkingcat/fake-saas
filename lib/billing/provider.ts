@@ -7,7 +7,6 @@ const PROVIDER_ENV_VARS: Record<Provider, string[]> = {
     'NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY',
     'STRIPE_SECRET_KEY',
     'STRIPE_PRICE_ID',
-    'STRIPE_WEBHOOK_SECRET',
   ],
   chargebee: [
     'NEXT_PUBLIC_CHARGEBEE_SITE',
