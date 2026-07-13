@@ -14,12 +14,15 @@ export async function POST(request: Request) {
   const stripe = new Stripe(secretKey);
   const origin = new URL(request.url).origin;
 
+  const { clickID } = await request.json().catch(() => ({}));
+
   try {
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       line_items: [{ price: priceId, quantity: 1 }],
       success_url: `${origin}/thank-you`,
       cancel_url: `${origin}/signup`,
+      client_reference_id: clickID ?? undefined,
     });
 
     return Response.json({ url: session.url });

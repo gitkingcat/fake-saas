@@ -31,19 +31,12 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         {children}
 
-        {/*
-          ── affy.pro capture snippet ──────────────────────────────────────
-          TODO: Paste your affy.pro capture snippet here.
-          Replace the empty <Script> below (or its src/dangerouslySetInnerHTML)
-          with the snippet provided in your affy.pro dashboard.
-          strategy="afterInteractive" ensures it runs after page hydration,
-          which is required for cookie + localStorage writes to work correctly.
-          ──────────────────────────────────────────────────────────────────
-        */}
         <Script
-          id="affy-capture"
+          id="affy-pixel"
+          src="https://cdn.affy.pro/js/pixel.min.js"
+          data-affy.pro="gObGD0E6X0rv"
+          data-cookie_duration="60"
           strategy="afterInteractive"
-          dangerouslySetInnerHTML={{ __html: '' }}
         />
       </body>
     </html>
