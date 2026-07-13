@@ -36,13 +36,12 @@ export default function RootLayout({
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
-              (function(w,d,s,a){
-                w.__affy={apiKey:a};
-                var sc=d.createElement(s);
-                sc.async=true;
-                sc.src='https://cdn.affy.pro/track.js';
-                d.head.appendChild(sc);
-              })(window,document,'script','gObGD0E6X0rv');
+              var s=document.createElement('script');
+              s.async=true;
+              s.src='https://cdn.affy.pro/affy.js';
+              s.setAttribute('data-affy.pro','gObGD0E6X0rv');
+              s.setAttribute('data-cookie_duration','60');
+              document.head.appendChild(s);
             `,
           }}
         />
