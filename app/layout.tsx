@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Script from "next/script";
+import AffyPixel from "@/components/AffyPixel";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -31,20 +31,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         {children}
 
-        <Script
-          id="affy-pixel"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              var s=document.createElement('script');
-              s.async=true;
-              s.src='https://cdn.affy.pro/affy.js';
-              s.setAttribute('data-affy.pro','gObGD0E6X0rv');
-              s.setAttribute('data-cookie_duration','60');
-              document.head.appendChild(s);
-            `,
-          }}
-        />
+        <AffyPixel />
       </body>
     </html>
   );
