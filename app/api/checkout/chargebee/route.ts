@@ -19,12 +19,11 @@ export async function POST(request: Request) {
 
   try {
     // https://apidocs.chargebee.com/docs/api/hosted_pages#checkout_new_for_items
-    const params: Parameters<typeof chargebee.hostedPage.checkoutNewForItems>[0] = {
+    // cf_* custom fields are valid Chargebee params but absent from the SDK types
+    const params = {
       subscription_items: [{ item_price_id: planId, quantity: 1 }],
-    };
-    if (clickID) {
-      params.cf_click_id = clickID;
-    }
+      ...(clickID ? { cf_click_id: clickID } : {}),
+    } as Parameters<typeof chargebee.hostedPage.checkoutNewForItems>[0];
     const { hosted_page } = await chargebee.hostedPage.checkoutNewForItems(params);
 
     return Response.json(hosted_page);
