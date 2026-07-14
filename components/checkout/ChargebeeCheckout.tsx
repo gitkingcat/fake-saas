@@ -38,9 +38,15 @@ export default function ChargebeeCheckout() {
     if (!cbInstance) return;
     setLoading(true);
 
+    const clickID = (window as unknown as { AffyJS?: { getReferralId(): string | null } }).AffyJS?.getReferralId() ?? null;
+
     cbInstance.openCheckout({
       hostedPage: () =>
-        fetch('/api/checkout/chargebee', { method: 'POST' }).then((res) => {
+        fetch('/api/checkout/chargebee', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ clickID }),
+        }).then((res) => {
           if (!res.ok) throw new Error('Failed to start Chargebee checkout');
           return res.json();
         }),

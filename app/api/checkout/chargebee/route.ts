@@ -1,6 +1,6 @@
 import Chargebee from 'chargebee';
 
-export async function POST() {
+export async function POST(request: Request) {
   const site = process.env.NEXT_PUBLIC_CHARGEBEE_SITE;
   const apiKey = process.env.CHARGEBEE_API_KEY;
   const planId = process.env.CHARGEBEE_PLAN_ID;
@@ -12,13 +12,20 @@ export async function POST() {
     );
   }
 
+  const body = await request.json().catch(() => ({}));
+  const clickID: string | null = body.clickID ?? null;
+
   const chargebee = new Chargebee({ site, apiKey });
 
   try {
     // https://apidocs.chargebee.com/docs/api/hosted_pages#checkout_new_for_items
-    const { hosted_page } = await chargebee.hostedPage.checkoutNewForItems({
+    const params: Parameters<typeof chargebee.hostedPage.checkoutNewForItems>[0] = {
       subscription_items: [{ item_price_id: planId, quantity: 1 }],
-    });
+    };
+    if (clickID) {
+      params.cf_click_id = clickID;
+    }
+    const { hosted_page } = await chargebee.hostedPage.checkoutNewForItems(params);
 
     return Response.json(hosted_page);
   } catch (err) {
