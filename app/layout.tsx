@@ -31,11 +31,13 @@ export default function RootLayout({
         {/* next/script with any strategy pushes to self.__next_s and depends on
             the Next.js runtime — it never emits a real <script> tag in SSR HTML.
             A raw dangerouslySetInnerHTML script is the only guaranteed path. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){if(document.querySelector('script[src*="affy.js"]'))return;var s=document.createElement('script');s.async=true;s.src='https://cdn.affy.pro/affy.js';s.setAttribute('data-affy.pro','gObGD0E6X0rv');s.setAttribute('data-cookie_duration','60');document.head.appendChild(s);})();`,
-          }}
-        />
+        {process.env.AFFY_TRACKING_ID && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `(function(){if(document.querySelector('script[src*="pixel.min.js"]'))return;var s=document.createElement('script');s.async=true;s.defer=true;s.src='https://cdn.affy.pro/js/pixel.min.js';s.setAttribute('data-affy.pro','${process.env.AFFY_TRACKING_ID}');s.setAttribute('data-cookie_duration','60');document.head.appendChild(s);})();`,
+            }}
+          />
+        )}
       </head>
       <body className="min-h-full flex flex-col">
         {children}

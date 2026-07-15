@@ -2,6 +2,7 @@ import { getActiveProvider, missingEnvVars } from '@/lib/billing/provider';
 import StripeCheckout from '@/components/checkout/StripeCheckout';
 import ChargebeeCheckout from '@/components/checkout/ChargebeeCheckout';
 import PaddleCheckout from '@/components/checkout/PaddleCheckout';
+import RegistrationGate from '@/components/checkout/RegistrationGate';
 
 export default function SignupPage() {
   const activeProvider = getActiveProvider();
@@ -47,11 +48,11 @@ export default function SignupPage() {
           </p>
         </div>
       ) : (
-        <>
+        <RegistrationGate>
           {activeProvider === 'stripe' && <StripeCheckout />}
           {activeProvider === 'chargebee' && <ChargebeeCheckout />}
           {activeProvider === 'paddle' && <PaddleCheckout priceId={process.env.PADDLE_PRICE_ID!} />}
-        </>
+        </RegistrationGate>
       )}
     </main>
   );
