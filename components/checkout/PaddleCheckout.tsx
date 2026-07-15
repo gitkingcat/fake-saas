@@ -8,7 +8,6 @@ import Script from 'next/script';
 
 declare global {
   interface Window {
-    AffyJS?: { getReferralId(): string | null };
     Paddle: {
       Environment: { set: (env: 'sandbox' | 'production') => void };
       Initialize: (options: { token: string }) => void;
@@ -37,7 +36,7 @@ export default function PaddleCheckout({ priceId }: { priceId: string }) {
 
   function handleCheckout() {
     if (!ready) return;
-    const clickID = window.AffyJS?.getReferralId() ?? null;
+    const clickID = (window as unknown as { AffyJS?: { getReferralId(): string | null } }).AffyJS?.getReferralId() ?? null;
     window.Paddle.Checkout.open({
       items: [{ priceId, quantity: 1 }],
       customData: { clickID },

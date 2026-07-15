@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, type ReactNode, type FormEvent } from 'react';
 
 declare global {
   interface Window {
@@ -11,13 +11,13 @@ declare global {
   }
 }
 
-export default function RegistrationGate({ children }: { children: React.ReactNode }) {
+export default function RegistrationGate({ children }: { children: ReactNode }) {
   const [done, setDone] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setLoading(true);
     await window.AffyJS?.trackRegistration({
